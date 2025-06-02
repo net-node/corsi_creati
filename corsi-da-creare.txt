@@ -1,0 +1,168 @@
+data structures in python:
+- 2D-list (matrice)
+- hashmap
+- stack (come lista, o come classe)
+- queue (come lista, o come classe)
+- priority queue (come lista, o come classe)
+- single linked list
+
+algorithms in python:
+- iterabile vs iteratore (iterabile può essere iterato, iteratore mantiene lo stato dell'iterazione)
+	- iteratore __iter__() e __next__() - (o generatore usando yield)
+- macchina a stati (Finite State Machine), es.: semaforo (dizionario, o classe (dove i metodi sarebbero gli stati))
+- linear search
+- binary search
+- tree search
+	- BFS
+	- DFS
+	- IDDS
+- (A*, Dijkstra, Best-First) search
+- ...
+
+1. Fondamentali
+Arrays (e 2D-list/matrici)
+Strings
+Linked Lists (Single Linked List)
+Stacks (implementazione come lista o classe)
+Queues (implementazione come lista o classe)
+Hashing (HashMaps/Dizionari)
+
+2. Strutture dati avanzate
+Priority Queues e Heaps
+Trees (Alberi binari, BST, ecc.)
+Graphs (Grafi)
+Tries
+Union Find (Disjoint Set Union)
+
+3. Algoritmi e tecniche
+Sorting (Merge Sort, Quick Sort, ecc.)
+Binary Search
+Recursion
+BFS/DFS (su alberi e grafi)
+Dynamic Programming
+Greedy Algorithms
+
+Piano di studio suggerito (12 settimane)
+Arrays, Strings, HashMaps (50 problemi Easy-Medium)
+Linked Lists, Stacks, Queues (30 problemi Medium)
+Trees & BFS/DFS (20 problemi Medium)
+Graphs & BFS/DFS avanzato (20 problemi Medium)
+Sorting, Binary Search, Recursion (30 problemi Medium)
+Priority Queues, Heaps, Tries (20 problemi Medium)
+Dynamic Programming (basico) (25 problemi Medium)
+Dynamic Programming (avanzato) (25 problemi Medium-Hard)
+Union Find & Greedy Algorithms (20 problemi Hard)
+Advanced Graphs (Dijkstra, MST, ecc.) (10 problemi Hard)
+
+Excercise:
+    Full list -> https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU
+    LeetCode - Explore Cards
+    HackerRank - Data Structures
+More:
+    https://usaco.guide/general/practicing
+    https://www.techinterviewhandbook.org/grind75/ - Interviews' questions
+    https://cp-algorithms.com/ - Algorithms for Competitive Programming
+
+Python orientato agli oggetti:
+- classi e metodi
+- @classmethod e @staticmethod
+- classi astratte (abc)
+
+python depths - beginner:
+- learn to use the docs:
+	- dunder methods
+	- personalized iterative object
+- Object serialization (JSON, pickle)
+- Streaming and Buffering (I/O to console/file)
+- Logging
+
+design patterns & real applications:
+- ...
+
+get started with assembly
+- the concepts (cpu, ...)
+- the instructions
+
+
+https://algorithmspath.com/dsa
+
+    Arrays and Linked Lists
+    Strings
+    Hashing (Free)
+    Stacks and Queues
+    Trees
+    Graphs
+    Priority Queues and Heaps (Free)
+    Union Find
+    Tries
+    Sorting
+    Dynamic Programming
+    BFS/DFS 
+
+14. Merge 2 Sorted Lists (Easy)
+Problem: Given two sorted singly-linked lists, merge to the two lists together such that the result is in sorted order (see examples).
+Example 1:
+Input: A=[1,2,3,4], B=[5,6,7,8]A=[1,2,3,4], B=[5,6,7,8]
+Output: [1,2,3,4,5,6,7,8][1,2,3,4,5,6,7,8]
+Explanation: The resulting list is in sorted order.
+Example 2:
+Input: A=[10,11,12], B=[2,4,12]A=[10,11,12], B=[2,4,12]
+Output: [2,4,10,11,11,12][2,4,10,11,11,12]
+Example 3:
+Input: A=[], B=[10]A=[], B=[10]
+Output: [10][10]
+
+4. Subsets (Medium)
+Problem: Given an array of integers AA, return all subsets of the array, known as the power set, P(A)P(A). The order in which the subsets are returned does not matter. The input array will consist of unique integers.
+Example 1:
+Input: A=[1,2,3,4]A=[1,2,3,4]
+Output: [[],[1],[2],[3],[4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4],[1,2,3],[1,2,4],[2,3,4],[1,3,4],[1,2,3,4]][[],[1],[2],[3],[4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4],[1,2,3],[1,2,4],[2,3,4],[1,3,4],[1,2,3,4]]
+Explanation: All possible subsets, including the empty set, are returned.
+Example 2:
+Input: A=[12,4,5], k=50A=[12,4,5], k=50
+Output: [[],[12],[4],[5],[12,4],[12,5],[4,5],[12,4,5]][[],[12],[4],[5],[12,4],[12,5],[4,5],[12,4,5]]
+Explanation: Same as example 1.
+Example 3:
+Input: A=[]A=[]
+Output: [[]][[]]
+
+106. Vertex Cover (Medium)
+Problem: Given an undirected graph G as an adjacency list, return the minimal size of a vertex cover of G. Recall that a vertex cover of an undirected graph is a subset of the vertices of the graph S such that for every edge (u,v) in G, u in S or v in S (logical disjunction, both u and v can be present in S).
+Example 1:
+Input: G = [[1],[0],[3],[2]]
+Output: 2
+Explanation: A minimal size vertex cover consists of two vertices, take for example [0,2], as the edges (0,1),(2,3) are both incident to a vertex in [0,2].
+Example 2:
+Input: G = [[1],[0,2,3],[1],[1]]
+Output: 1
+Explanation: The vertex 1 is incident to all the edges (0,1),(1,2),(1,3) in the graph.
+Example 3:
+Input: G = [[],[],[],[]]
+Output: 0
+
+18. Add 1 To List (Medium)
+Problem: Given a singly linked list head which represent an integer, such that the least significant digit is at the head, add one to the list and return the new head.
+Example 1:
+Input: head=[1,2,3,4]head=[1,2,3,4]
+Output: [2,2,3,4][2,2,3,4]
+Explanation: The integer represented by the list is 4321, adding one gives 4322.
+Example 2:
+Input: head=[9,9,8]head=[9,9,8]
+Output: [0,0,9][0,0,9]
+Explanation: The integer represented by the list is 899, adding one gives 900.
+Example 3:
+Input: head=[9,9,9]head=[9,9,9]
+Output: [0,0,0,1][0,0,0,1]
+Explanation: The integer represented by the list is 999, adding one gives 1000. 
+
+Benjamin Qi
+
+If you're still coming up with new ideas, keep thinking. Otherwise, you have several options to get unstuck on your own:
+
+    Look at the tags (if available).
+    Read (part of) the official solution.
+    Read someone else's solution code (if publicly available).
+        This can often be helpful even if you've already solved the problem yourself, as top competitors sometimes come up with cleaner approaches than the official one.
+    Leave it for a while and do something else for a few hours or days (if you want to solve it wholly on your own). Often you'll come up with new ideas in the meantime.
+
+In any case, if you thought about a problem a lot during a contest but didn't end up solving it, then I don't see any reason not to read the editorial when it comes out (vs. continuing to think about it on your own). Also, unless you understand the solution perfectly, you should always implement the solution afterward.

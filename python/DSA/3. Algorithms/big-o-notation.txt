@@ -1,0 +1,130 @@
+[WIKI-IMAGE]
+https://en.wikipedia.org/wiki/Big_O_notation#/media/File:Comparison_computational_complexity.svg
+
+
+Immagina di avere un barattolo magico di biscotti 🍪 e vuoi sapere quanto tempo ci vuole per fare diverse operazioni con esso.
+
+Big O è come un contatore di velocità ⏱️ che ci dice quanto un algoritmo (una serie di passaggi) è veloce (o lento) quando il barattolo diventa più grande.
+🚀 O(1) – Velocissimo! (Tempo Costante)
+
+"Non importa quanti biscotti ci sono, il tempo è sempre lo stesso!"
+
+📸 Disegno:
+
+🍪 → 🖐️ Prendi un biscotto → 😋 Gnam!  
+🍪🍪🍪🍪🍪 → 🖐️ Ne prendi sempre uno → 😋 Gnam!  
+
+    Esempio: Trovare il primo biscotto nel barattolo.
+
+🐇 O(log n) – Molto Intelligente! (Tempo Logaritmico)
+
+"Anche con più biscotti, il tempo cresce pochissimo!"
+
+📸 Disegno:
+
+🍪🍪🍪🍪🍪🍪🍪🍪 → Dividi il barattolo a metà ogni volta!  
+1. 🍪🍪🍪🍪 ❌  
+2. 🍪🍪 ✅  
+3. 🍪 😋 Trovato!  
+
+    Esempio: Cercare un biscotto in un barattolo ordinato dividendo a metà ogni volta.
+
+🚶 O(n) – Più Lento con Più Biscotti (Tempo Lineare)
+
+"Più biscotti = Più tempo!"
+
+📸 Disegno:
+
+🍪 → 👀 Controlla 1 → 😋 Trovato!  
+🍪🍪🍪 → 👀👀👀 Controlla 3 → 😋 Trovato!  
+🍪🍪🍪🍪🍪🍪🍪 → 👀👀👀👀👀👀👀 Controlla 7 → 😋 Trovato!  
+
+    Esempio: Cercare un biscotto speciale controllandoli uno per uno.
+
+🐢 O(n²) – Molto Lento! (Tempo Quadratico)
+
+"Se il barattolo raddoppia, il tempo diventa 4 volte più lungo!"
+
+📸 Disegno:
+
+🍪🍪 → 👀👀 + Confronta 🆚 → 4 passaggi!  
+🍪🍪🍪 → 👀👀👀 + Confronta 🆚 → 9 passaggi! 😩  
+
+    Esempio: Confrontare ogni biscotto con tutti gli altri.
+
+🐌 O(2ⁿ) – Troppo Lento! (Tempo Esponenziale)
+
+"Bastano pochi biscotti in più per renderlo LENTISSIMO!"
+
+📸 Disegno:
+
+🍪 → 2 scelte (mangiare o no) → 2 passaggi.  
+🍪🍪 → 4 scelte.  
+🍪🍪🍪 → 8 scelte... 😵  
+
+    Esempio: Provare tutte le combinazioni possibili per mangiare i biscotti.
+
+🎨 Riassunto Big O (Dal Più Veloce al Più Lento)
+
+🚀 O(1) → Il più veloce!  
+🐇 O(log n) → Ancora veloce!  
+🚶 O(n) → Accettabile...  
+🐢 O(n²) → Comincia a essere lento...  
+🐌 O(2ⁿ) → Troppo lento!  
+
+Esempio nella Vita Reale 🏃‍♂️ vs. 🚗
+
+    O(1): Accendere la luce (è sempre immediato).
+
+    O(log n): Cercare una parola nel dizionario (saltando le pagine).
+
+    O(n): Trovare un amico in fila (controllare uno per uno).
+
+    O(n²): Stringere la mano a tutti a una festa (ognuno con tutti).
+
+Ora sai quali algoritmi sono veloci e quali sono lenti! 😊
+
+---
+
+
+1️⃣ La "O" (O grande) → "Ordine di"
+
+La O sta per "Ordine di" e significa che stiamo misurando quanto tempo (o spazio) un algoritmo impiega al massimo quando i dati crescono.
+
+    Esempio:
+
+        Se diciamo "Questo algoritmo è O(n)", significa che il suo tempo di esecuzione cresce nell’ordine di n (cioè in modo lineare).
+
+        È come dire: "Al massimo, ci metterà un tempo proporzionale a n".
+
+2️⃣ L'"1" in O(1) → Tempo costante
+
+L'1 significa che l’algoritmo è istantaneo (o quasi), indipendentemente dalla dimensione dei dati.
+
+    Esempio pratico:
+
+        Accendere una luce 🚦:
+
+            Non importa se hai 1 interruttore o 1000, ci metti sempre lo stesso tempo (un click).
+
+        Prendere il primo elemento di una lista:
+        python
+
+        lista = [10, 20, 30, 40]
+        primo_elemento = lista[0]  # O(1), sempre veloce!
+
+3️⃣ La "n" in O(n) → Dipende dai dati
+
+La n rappresenta la dimensione dell’input (quanti dati deve processare l’algoritmo).
+
+    Esempio pratico:
+
+        Cercare un nome in una lista non ordinata 📜:
+        python
+
+nomi = ["Alice", "Bob", "Charlie", "Diana"]
+for nome in nomi:  # O(n), perché devo controllare tutti!
+    if nome == "Charlie":
+        print("Trovato!")
+
+    Se la lista raddoppia, il tempo raddoppia.
