@@ -33,6 +33,7 @@ Se diciamo "Questo algoritmo è O(n)", significa che il suo tempo di esecuzione 
     O(n²): Stringere la mano a tutti a una festa (ognuno con tutti).
 
 ![big o notation graph](./big-o.png)
+[(Fonte: Wikipedia)](https://en.wikipedia.org/wiki/Big_O_notation#/media/File:Comparison_computational_complexity.svg)
 
 ### Perché è utile?
 - Confrontare algoritmi: Ci aiuta a scegliere la soluzione più efficiente.
