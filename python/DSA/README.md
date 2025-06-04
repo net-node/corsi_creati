@@ -1,7 +1,7 @@
 ## Data Structures & Algorithms
 Corso sulle Strutture Dati e Algoritmi
 
-1. Data Structure - Fundamentals
+- Data Structure - Fundamentals
     - Strings, Arrays e 2D-Array
     - Linked Lists (Single Linked List)
     - Stacks (implementazione come lista o classe)
