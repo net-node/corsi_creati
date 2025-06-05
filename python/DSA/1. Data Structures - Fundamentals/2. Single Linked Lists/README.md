@@ -86,29 +86,6 @@ La RAM diventa:
     0x4000      |  30                   |  NULL (fine lista)
       ...       |  [Altri dati non correlati]  ← La memoria è frammentata!
 
-## Python
-
-domanda:
-in C le Single Linked List ci servono per creare array di dimensione "dinamica", senza riallocare memoria.
-Ma in python abbiamo già le liste che sono di memoria dinamica.
-Perchè usarle?
-
-Risposta:
-While Python’s built-in list covers most needs, singly linked lists are useful when:
-1. You need frequent insertions/deletions at the head.
-2. You want memory-efficient dynamic growth (no reallocation).
-3. You’re implementing stacks, queues, or functional structures.
-4. You’re solving linked-list-specific algorithms (e.g., cycle detection).
-
-# 1. You need frequent insertions/deletions at the head.
-Che significa "Inserire/eliminare nella/dalla Head" frequentemente?
-Significa aggiungere/rimuovere in testa alla lista in modo frequente.
-
-Perchè è importante?
-    In a Python list (dynamic array), inserting/deleting at the head is slow (O(n)) because all other elements must be shifted.
-
-    In a singly linked list, inserting/deleting at the head is fast (O(1)) because you just update a pointer.
-
 Esempio: Python list vs. Linked List
 1. Using Python list (Slow for Head Operations)
 
@@ -151,6 +128,22 @@ ll.insert_at_head(1)  # 1 → 2 → None
 ll.delete_at_head()   # 2 → None
 ```
     Advantage: No shifting! Just pointer updates → Much faster if done repeatedly.
+
+## Python
+While Python’s built-in list covers most needs, singly linked lists are useful when:
+1. You need frequent insertions/deletions at the head.
+2. You want memory-efficient dynamic growth (no reallocation).
+3. You’re implementing stacks, queues, or functional structures.
+4. You’re solving linked-list-specific algorithms (e.g., cycle detection).
+
+# 1. You need frequent insertions/deletions at the head.
+Che significa "Inserire/eliminare nella/dalla Head" frequentemente?
+Significa aggiungere/rimuovere in testa alla lista in modo frequente.
+
+Perchè è importante?
+    In a Python list (dynamic array), inserting/deleting at the head is slow (O(n)) because all other elements must be shifted.
+
+    In a singly linked list, inserting/deleting at the head is fast (O(1)) because you just update a pointer.
 
 ## Applicazioni nella vita reale
 ### Real-Time Transaction Logs (Order Matters, Fast Writes)
