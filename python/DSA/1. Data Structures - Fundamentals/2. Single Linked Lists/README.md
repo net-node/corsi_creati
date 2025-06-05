@@ -1,9 +1,97 @@
-### Concept in C++ here
+## La teoria in C
+### Intro: problema array
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[3];
+}
+```
+#### come funziona sotto?
+Layout in Memoria (RAM)
+
+Ecco come viene allocato fisicamente nella RAM:
+
+    Indirizzo di memoria   |   Dato (4 byte per int)
+    -----------------------|------------------------
+    0x1000                 |   arr[0] (non inizializzato)
+    0x1004                 |   arr[1] (non inizializzato)
+    0x1008                 |   arr[2] (non inizializzato)
+
+Ogni int occupa 4 byte contigui. Gli indirizzi sono consecutivi (0x1000, 0x1004, 0x1008).
+
+Se int fosse a 2 byte (su sistemi embedded), gli indirizzi sarebbero 0x1000, 0x1002, 0x1004.
+
+Se assegniamo valori:
+
+```c
+arr[0] = 10;  // 0x0000000A (hex)
+arr[1] = 20;  // 0x00000014
+arr[2] = 30;  // 0x0000001E
+```
+
+La RAM diventa:
+
+    Indirizzo   |   Byte 3   Byte 2   Byte 1   Byte 0   |   Valore (int)
+    ------------|---------------------------------------|----------------
+    0x1000      |   00       00       00       0A       |   10 (arr[0])
+    0x1004      |   00       00       00       14       |   20 (arr[1])
+    0x1008      |   00       00       00       1E       |   30 (arr[2])
+
+- little-endian:  I byte sono salvati in ordine inverso (il meno significativo per primo)
+
+### Soluzione: Single Linked List
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definizione del nodo
+struct Nodo {
+    int dato;
+    struct Nodo *next;  // Puntatore al prossimo nodo
+};
+
+int main() {
+    // Creazione nodi
+    struct Nodo *n1 = malloc(sizeof(struct Nodo));
+    struct Nodo *n2 = malloc(sizeof(struct Nodo));
+    struct Nodo *n3 = malloc(sizeof(struct Nodo));
+
+    n1->dato = 10; n1->next = n2;
+    n2->dato = 20; n2->next = n3;
+    n3->dato = 30; n3->next = NULL;
+
+    // Stampa
+    struct Nodo *current = n1;
+    while (current != NULL) {
+        printf("%d ", current->dato);
+        current = current->next;
+    }
+
+    // Libera memoria
+    free(n1);
+    free(n2);
+
+    return 0;
+}
+```
+
+La RAM diventa:
+
+    Indirizzo   |   Dato (Nodo)          |   Puntatore (next)  
+    ------------|------------------------|-------------------
+    0x2000      |  10                   |  0x3000 → (punta al nodo 2)
+      ...       |  [Altri dati non correlati]  ← La memoria è frammentata!
+    0x3000      |  20                   |  0x4000 → (punta al nodo 3)
+    0x4000      |  30                   |  NULL (fine lista)
+      ...       |  [Altri dati non correlati]  ← La memoria è frammentata!
+
+## Python
 
 domanda:
-in c++ SLL ci servono per creare array di dimensione "dinamica", basta aggiungere un nodo.
+in C le Single Linked List ci servono per creare array di dimensione "dinamica", senza riallocare memoria.
 Ma in python abbiamo già le liste che sono di memoria dinamica.
-Perchè usarle??
+Perchè usarle?
 
 Risposta:
 While Python’s built-in list covers most needs, singly linked lists are useful when:
@@ -13,16 +101,10 @@ While Python’s built-in list covers most needs, singly linked lists are useful
 4. You’re solving linked-list-specific algorithms (e.g., cycle detection).
 
 # 1. You need frequent insertions/deletions at the head.
-What Does "Frequent Insertions/Deletions at the Head" Mean?
+Che significa "Inserire/eliminare nella/dalla Head" frequentemente?
+Significa aggiungere/rimuovere in testa alla lista in modo frequente.
 
-It refers to adding or removing elements at the beginning of a list very often.
-
-    Insertion at head → Adding a new element as the first item.
-
-    Deletion at head → Removing the first item.
-
-Why Is This Important?
-
+Perchè è importante?
     In a Python list (dynamic array), inserting/deleting at the head is slow (O(n)) because all other elements must be shifted.
 
     In a singly linked list, inserting/deleting at the head is fast (O(1)) because you just update a pointer.
