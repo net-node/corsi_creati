@@ -225,5 +225,57 @@ class MRUCache:
 
     Esempio: I driver di rete (network drivers) processano i pacchetti in ordine FIFO (First In First Out).
 
-    I pacchetti arrivano in modo imprevedibile: le Linked Lists evitano riallocazioni di memoria.
+    Pacchetti arrivano in ordine casuale:
+    - Pacchetto 3 (inizio del video).
+    - Pacchetto 1 (intestazione).
+    - Pacchetto 2 (metà del video).
+
+    Il driver di rete:
+    - Li inserisce in una linked list nell’ordine di arrivo.
+    - Il protocollo TCP/IP si occupa di riordinarli prima di passarli al browser.
+
+    Se usassimo una lista contigua (array):
+    - Dovremmo spostare continuamente i dati per fare spazio.
+    - Rallenterebbe la ricezione (specialmente con video 4K).
+
     Python asyncio.Queue usa concetti simili.
+
+### Array e Frammentazione
+Problema degli Array/Liste Contigue
+
+    Gli array (e le liste contigue come Python list) richiedono blocchi di memoria contigua.
+
+    Se hai un array grande e lo elimini/ridimensioni spesso, lasci "buchi" nella memoria:
+    python
+
+    # Esempio: un array di 1 MB viene liberato, ma la RAM ora ha un "buco" da 1 MB
+    arr = [0] * 10**6  # Alloca 1 MB contiguo
+    del arr             # Libera 1 MB, ma può non essere riutilizzabile per allocazioni più piccole
+
+    Risultato: La memoria si frammenta, e anche se c’è spazio libero totale, non puoi allocare un nuovo array grande perché non c’è un blocco contiguo sufficiente.
+
+Perché è un Problema?
+
+    Se il sistema operativo non riesce a trovare un blocco contiguo per un nuovo array, devi:
+
+        Spostare dati in memoria (costoso).
+
+        Fallire l’allocazione (out-of-memory, anche se teoricamente c’è spazio).
+
+### Linked List e Frammentazione
+Problema delle Linked List
+
+    Le linked list non richiedono memoria contigua: ogni nodo vive in un punto qualsiasi della RAM.
+
+    Non causano frammentazione della memoria fisica, perché il sistema operativo può allocare i nodi dove c’è spazio libero.
+
+    Ma hanno un altro tipo di frammentazione:
+
+        Overhead dei puntatori: Ogni nodo spreca memoria per next/prev.
+
+        Cache misses: I nodi sparsi in RAM rallentano l’accesso (nessuna località di riferimento).
+
+## Perché Python Non Usa Linked List per Tutto?
+- Accesso casuale: Le linked list sono lente per operazioni come lista[1000] (O(n)).
+- Cache locality: Gli array sono più veloci perché i dati sono vicini in memoria (le linked list no).
+- Python usa deque: Una via di mezzo (lista doppiamente linkata con ottimizzazioni).
