@@ -21,8 +21,18 @@
 |                     |  cioè il codice macchina compilato delle tue funzioni
 +---------------------+  Indirizzi bassi
 ```
+### Stack, Heap, Data Segment e Text Segment: Sono Concetti Legati Solo al C o a Tutti i Linguaggi?
 
-1. Stack (Memoria Automatica)
+Questi concetti non sono esclusivi del C, ma sono fondamentali per come i computer gestiscono la memoria RAM a basso livello. Ecco una spiegazione chiara:
+#### Sono Legati al C o al Computer?
+
+    Sono un meccanismo del computer (CPU + sistema operativo), non solo del C.
+
+    Tutti i linguaggi (Java, Python, C++, Rust, ecc.) usano questi segmenti di memoria, ma spesso li nascondono per comodità.
+
+    Il C ti fa vedere esplicitamente come funziona la memoria, mentre altri linguaggi (es. Java/Python) lo gestiscono "dietro le quinte".
+
+## 1. Stack (Memoria Automatica)
 
 Cos'è:
 
@@ -56,7 +66,7 @@ Caratteristiche:
 
     La dimensione deve essere nota a compile-time.
 
-2. Heap (Memoria Dinamica)
+### 2. Heap (Memoria Dinamica)
 
 Cos'è:
 
@@ -119,7 +129,7 @@ int* leggi_file(const char* filename) {
 ```
     Necessario per dati grandi o che devono sopravvivere al scope.
 
-### Data Segment
+### 3. Data Segment
 A. Variabili Globali (allocazione nel Data Segment)
 ```c
 
@@ -147,8 +157,8 @@ void function() {
 
     local_stack viene distrutta alla fine della funzione (memoria nello stack).
 
-5. Confronto con Altri Segmenti
-A. Data Segment vs Stack
+#### Confronto con Altri Segmenti
+#### A. Data Segment vs Stack
 ```c
 
 int global = 10;  // Data Segment
@@ -159,7 +169,7 @@ void foo() {
 ```
     global esiste sempre, stack_var viene distrutta alla fine di foo().
 
-B. Data Segment vs Heap
+#### B. Data Segment vs Heap
 ```c
 
 int *heap_var = malloc(sizeof(int));  // Heap
@@ -167,7 +177,7 @@ int *heap_var = malloc(sizeof(int));  // Heap
 ```
     heap_var deve essere liberato manualmente con free(), mentre le variabili globali no.
 
-### Text Segment
+### 4. Text Segment
 ```c
 
 #include <stdio.h>
