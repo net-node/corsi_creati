@@ -1,17 +1,12 @@
-class SingleLinkedList:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from single_linked_list import ListNode, SingleLinkedList
 
+head = ListNode('a')
+alphabet = "bcdefghijklmnopqrstuvwxyz"
 
-node1 = SingleLinkedList('abc')
-node2 = SingleLinkedList('def')
-node3 = SingleLinkedList('ghi')
+def build_linked_list():
+    for char in alphabet:
+        head.next = ListNode(char)
+        head = head.next
 
-node1.next = node2
-node2.next = node3
+print(head.data)
 
-current_node = node1
-while current_node:
-    print(current_node.data)
-    current_node = current_node.next
