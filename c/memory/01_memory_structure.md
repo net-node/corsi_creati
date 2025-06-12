@@ -12,10 +12,10 @@
 |                     |  - Dati dinamici
 |                     |
 |---------------------|
-|   Data Segment      |  (.data: variabili globali inizializzate | .bss: non inizializzate)
+|   Data Segment      |  (.data: variabili GLOBALI inizializzate | .bss: var. GLOBALI non inizializzate)
 |---------------------|  Contiene:
-|                     |  → Variabili inizializzate (es. `int x = 10;`)
-|                     |  → Variabili non inizializzate (es. `int y;`)
+|                     |  → Variabili GLOBALI inizializzate (es. `int x = 10;`)
+|                     |  → Variabili GLOBALI non inizializzate (es. `int y;`)
 |---------------------|
 |   Text Segment      |  ← Il tuo codice binario eseguibile (read-only)
 |                     |  cioè il codice macchina compilato delle tue funzioni
