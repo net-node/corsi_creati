@@ -1,3 +1,37 @@
+## Perchè dovrebbe interessarmi?
+Capire come funziona la memoria è fondamentale per ottimizzare gli algoritmi.
+Una Lista è veloce per la lettura (efficiente in cache) ed una Linked List è veloce per la scrittura sulla "head".
+
+Algoritmi Ricorsivi vs Iterativi
+
+La ricorsione usa lo stack (spazio limitato → rischio stack overflow).
+
+Se conosci la memoria, puoi decidere quando usare:
+
+    Ricorsione (più elegante, ma consuma stack).
+
+    Iterazione + heap (più lento, ma scalabile).
+
+Esempio:
+```c
+// Ricorsivo (usa lo stack, O(2^n) tempo, O(n) spazio nello stack)
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n-1) + fib(n-2);
+}
+
+// Iterativo (usa heap se necessario, O(n) tempo, O(1) spazio)
+int fib_iter(int n) {
+    int a = 0, b = 1, c;
+    for (int i = 2; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+```
+
 ## Struttura della memoria
 ```
 +---------------------+  Indirizzi alti
