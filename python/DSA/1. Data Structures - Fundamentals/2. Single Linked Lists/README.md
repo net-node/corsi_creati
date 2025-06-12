@@ -53,7 +53,7 @@ doing inserts or pops from the beginning of a list is slow
 """
 
 ```
-    Problem: If you do this thousands of times, it becomes inefficient.
+    Problem: If you do this THOUSANDS of times, it becomes inefficient.
 
 ### Array e Frammentazione
 Problema degli Array/Liste Contigue
