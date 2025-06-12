@@ -57,7 +57,7 @@ int fib_iter(int n) {
 ```
 ### Stack, Heap, Data Segment e Text Segment: Sono Concetti Legati Solo al C o a Tutti i Linguaggi?
 
-Questi concetti non sono esclusivi del C, ma sono fondamentali per come i computer gestiscono la memoria RAM a basso livello. Ecco una spiegazione chiara:
+Questi concetti non sono esclusivi del C, ma sono fondamentali per come i computer gestiscono la memoria RAM a basso livello.
 #### Sono Legati al C o al Computer?
 
     Sono un meccanismo del computer (CPU + sistema operativo), non solo del C.

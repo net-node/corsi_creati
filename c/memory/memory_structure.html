@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Segments Visualization</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            display: flex;
+            margin: 0;
+            padding: 20px;
+            background-color: #f6f8fa;
+        }
+        
+        .memory-container {
+            width: 200px;
+            height: 500px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            position: relative;
+            background-color: #ffffff;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .segment {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .segment:hover {
+            transform: scale(1.02);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-panel {
+            flex-grow: 1;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            max-height: 500px;
+            display: none;
+        }
+        
+        .active-content {
+            display: block;
+        }
+        
+        .text-segment {
+            height: 15%;
+            background-color: #28a745;
+            top: 0;
+        }
+        
+        .data-segment {
+            height: 25%;
+            background-color: #0366d6;
+            top: 15%;
+        }
+        
+        .heap-segment {
+            height: 25%;
+            background-color: #f66a0a;
+            top: 40%;
+        }
+        
+        .stack-segment {
+            height: 35%;
+            background-color: #d73a49;
+            top: 65%;
+        }
+        
+        /* README.md styling */
+        h2 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+        }
+        
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow: auto;
+        }
+        
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: rgba(27,31,35,0.05);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        
+        .vantaggi {
+            color: #22863a;
+        }
+        
+        .limiti {
+            color: #cb2431;
+        }
+    </style>
+</head>
+<body>
+    <div class="memory-container">
+        <div class="segment text-segment" onmouseover="showContent('text-content')">
+            Text Segment
+        </div>
+        <div class="segment data-segment" onmouseover="showContent('data-content')">
+            Data Segment
+        </div>
+        <div class="segment heap-segment" onmouseover="showContent('heap-content')">
+            Heap
+        </div>
+        <div class="segment stack-segment" onmouseover="showContent('stack-content')">
+            Stack
+        </div>
+    </div>
+    
+    <div id="text-content" class="content-panel">
+        <h2>Text Segment</h2>
+        <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello, Text Segment!\n");
+    return 0;
+}</code></pre>
+        <p>Quando compili questo codice, l'istruzione printf viene convertita in linguaggio macchina e memorizzata nel Text Segment.</p>
+    </div>
+    
+    <div id="data-content" class="content-panel">
+        <h2>Data Segment</h2>
+        <h3>A. Variabili Globali</h3>
+        <pre><code>int global_var = 10;         // .data (inizializzata)
+static int static_var = 20;  // .data (inizializzata)
+int uninit_var;              // .bss (non inizializzata)
+
+int main() {
+    printf("%d\n", global_var);  // Output: 10
+    printf("%d\n", uninit_var);  // Output: 0 (default)
+    return 0;
+}</code></pre>
+        
+        <h3>B. Variabili Locali vs Globali</h3>
+        <pre><code>void function() {
+    static int local_static = 5;  // Data Segment!
+    int local_stack = 10;         // Stack
+}</code></pre>
+        <p><code>local_static</code> persiste tra le chiamate a funzione (memoria nel .data).<br>
+        <code>local_stack</code> viene distrutta alla fine della funzione (memoria nello stack).</p>
+        
+        <h3>Confronto con Altri Segmenti</h3>
+        <h4>A. Data Segment vs Stack</h4>
+        <pre><code>int global = 10;  // Data Segment
+
+void foo() {
+    int stack_var = 20;  // Stack
+}</code></pre>
+        <p><code>global</code> esiste sempre, <code>stack_var</code> viene distrutta alla fine di <code>foo()</code>.</p>
+        
+        <h4>B. Data Segment vs Heap</h4>
+        <pre><code>int *heap_var = malloc(sizeof(int));  // Heap
+*heap_var = 30;</code></pre>
+        <p><code>heap_var</code> deve essere liberato manualmente con <code>free()</code>, mentre le variabili globali no.</p>
+    </div>
+    
+    <div id="heap-content" class="content-panel">
+        <h2>Heap (Memoria Dinamica)</h2>
+        <p><strong>Cos'è:</strong><br>
+        Una regione di memoria disordinata e flessibile, gestita manualmente dal programmatore.<br>
+        Usato per dati che devono persistere o hanno dimensione sconosciuta a compile-time.</p>
+        
+        <p><strong>Come funziona:</strong><br>
+        Allocazione con <code>malloc()</code>/<code>calloc()</code>, liberazione con <code>free()</code>.<br>
+        Accesso più lento (richiede lookup indiretto).</p>
+        
+        <h3>Esempio</h3>
+        <pre><code>int* crea_array(int n) {
+    int* arr = malloc(n * sizeof(int));  // Allocato nell'heap
+    return arr;
+}
+
+int main() {
+    int* ptr = crea_array(100);
+    free(ptr);  // Deallocazione manuale obbligatoria!
+}</code></pre>
+        
+        <h3>Caratteristiche</h3>
+        <p class="vantaggi">✅ <strong>Vantaggi:</strong></p>
+        <ul>
+            <li>Dimensione illimitata (dipende dalla RAM disponibile)</li>
+            <li>Dimensione decisa a runtime</li>
+        </ul>
+        
+        <p class="limiti">❌ <strong>Limiti:</strong></p>
+        <ul>
+            <li>Rischio di memory leak se non si usa <code>free()</code></li>
+            <li>Frammentazione della memoria</li>
+        </ul>
+        
+        <h3>📌 Caso d'uso</h3>
+        <pre><code>int* leggi_file(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    int size = ...;  // Dimensione sconosciuta a compile-time
+    int* dati = malloc(size * sizeof(int));  // Heap necessario!
+    // ... lettura dati ...
+    return dati;  // Dati devono persistere dopo la funzione
+}</code></pre>
+        <p>Necessario per dati grandi o che devono sopravvivere al scope.</p>
+    </div>
+    
+    <div id="stack-content" class="content-panel">
+        <h2>Stack (Memoria Automatica)</h2>
+        <p><strong>Cos'è:</strong><br>
+        Una regione di memoria ordinata e prevedibile, gestita automaticamente dal compilatore.<br>
+        Usato per variabili locali e chiamate di funzione.</p>
+        
+        <p><strong>Come funziona:</strong><br>
+        La memoria viene allocata/liberata automaticamente all'inizio/fine di un blocco di codice.<br>
+        Accesso ultra-veloce (la CPU gestisce lo stack direttamente).</p>
+        
+        <h3>Esempio</h3>
+        <pre><code>void funzione() {
+    int x = 10;          // Allocato nello stack
+    char c = 'A';        // Anche questo nello stack
+} // Qui x e c vengono automaticamente deallocati</code></pre>
+        
+        <h3>Caratteristiche</h3>
+        <p class="vantaggi">✅ <strong>Vantaggi:</strong></p>
+        <ul>
+            <li>Velocità (allocazione/deallocazione in 1 ciclo CPU)</li>
+            <li>Nessun rischio di memory leak (gestione automatica)</li>
+        </ul>
+        
+        <p class="limiti">❌ <strong>Limiti:</strong></p>
+        <ul>
+            <li>Dimensione limitata (es. 1-8 MB, dipende dal sistema)</li>
+            <li>La dimensione deve essere nota a compile-time</li>
+        </ul>
+        
+        <h3>📌 Caso d'uso</h3>
+        <pre><code>void calcola() {
+    int risultato = 0;  // Variabile temporanea → perfetta per lo stack
+    // ... calcoli ...
+} // Risultato deallocato automaticamente</code></pre>
+        <p>Ideale per dati temporanei e a vita breve.</p>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            // Hide all content panels
+            const panels = document.querySelectorAll('.content-panel');
+            panels.forEach(panel => {
+                panel.classList.remove('active-content');
+            });
+            
+            // Show the selected panel
+            document.getElementById(contentId).classList.add('active-content');
+        }
+    </script>
+</body>
+</html>
