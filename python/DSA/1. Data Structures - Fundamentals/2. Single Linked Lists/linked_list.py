@@ -5,8 +5,17 @@ class ListNode:
 
 
 class LinkedList:
-    def __init__(self, head: ListNode):
-        self.head : ListNode = head
+    def __init__(self, data):
+        self.head = ListNode(data)
+    
+    def insert_at_head(self, data):
+        old_head = self.head
+        self.head = ListNode(data)
+        self.head.next = old_head
+
+    def delete_at_head(self):
+        if self.head:
+            self.head = self.head.next
 
     def append(self, data):
         new_node = ListNode(data)
@@ -18,8 +27,12 @@ class LinkedList:
             last = last.next
         last.next = new_node
     
-    def drop_head(self):
-        self.head = self.head.next
+    def search(self, item):
+        last = self.head
+        while last.next:
+            if last.data == item:
+                return last
+            last = last.next
 
     def print(self):
         print("(head)", end=" ")

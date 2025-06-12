@@ -1,5 +1,5 @@
 ## La teoria in C
-### Intro: problema array
+### Array e Linked List
 ```c
 #include <stdio.h>
 
@@ -7,20 +7,16 @@ int main() {
     int arr[3];
 }
 ```
-#### come funziona sotto?
-Layout in Memoria (RAM)
 
-Ecco come viene allocato fisicamente nella RAM:
-
+### Layout in Memoria (RAM)
     Indirizzo di memoria   |   Dato (4 byte per int)
     -----------------------|------------------------
     0x1000                 |   arr[0] (non inizializzato)
     0x1004                 |   arr[1] (non inizializzato)
     0x1008                 |   arr[2] (non inizializzato)
 
-Ogni int occupa 4 byte contigui. Gli indirizzi sono consecutivi (0x1000, 0x1004, 0x1008).
-
-Se int fosse a 2 byte (su sistemi embedded), gli indirizzi sarebbero 0x1000, 0x1002, 0x1004.
+Ogni int occupa 4 byte contigui (gli indirizzi sono consecutivi: 0x1000, 0x1004, 0x1008).
+Se int occupasse 2 byte (sistemi embedded), gli indirizzi sarebbero 0x1000, 0x1002, 0x1004.
 
 Se assegniamo valori:
 
@@ -40,7 +36,76 @@ La RAM diventa:
 
 - little-endian:  I byte sono salvati in ordine inverso (il meno significativo per primo)
 
-### Soluzione: Single Linked List
+### Python List
+```python
+my_list = [2, 3, 4]
+
+# Insert at head (all elements shift right → O(n))
+my_list.insert(0, 1)  # [1, 2, 3, 4]
+
+# Delete at head (all elements shift left → O(n))
+my_list.pop(0)  # [2, 3, 4]
+
+"""While appends and pops from the end of list are fast,
+doing inserts or pops from the beginning of a list is slow
+(because all of the other elements have to be shifted by one).
+[https://docs.python.org/3/tutorial/datastructures.html#using-lists-as-queues]
+"""
+
+```
+    Problem: If you do this thousands of times, it becomes inefficient.
+
+### Array e Frammentazione
+Problema degli Array/Liste Contigue
+
+    Gli array (e le liste contigue come Python list) richiedono blocchi di memoria contigua.
+
+    Se hai un array grande e lo elimini/ridimensioni spesso, lasci "buchi" nella memoria:
+    python
+
+    # Esempio: un array di 1 MB viene liberato, ma la RAM ora ha un "buco" da 1 MB
+    arr = [0] * 10**6  # Alloca 1 MB contiguo
+    del arr             # Libera 1 MB, ma può non essere riutilizzabile per allocazioni più piccole
+
+    Risultato: La memoria si frammenta, e anche se c’è spazio libero totale, non puoi allocare un nuovo array grande perché non c’è un blocco contiguo sufficiente.
+
+Perché è un Problema?
+
+    Se il sistema operativo non riesce a trovare un blocco contiguo per un nuovo array, devi:
+
+        Spostare dati in memoria (costoso).
+
+        Fallire l’allocazione (out-of-memory, anche se teoricamente c’è spazio).
+
+### Usare una Linked List (Veloce per operazioni sulla Head)
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert_at_head(self, data):  # O(1)
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def delete_at_head(self):  # O(1)
+        if self.head:
+            self.head = self.head.next
+
+# Usage
+ll = LinkedList()
+ll.insert_at_head(2)  # 2 → None
+ll.insert_at_head(1)  # 1 → 2 → None
+ll.delete_at_head()   # 2 → None
+```
+    Advantage: No shifting! Just pointer updates → Much faster if done repeatedly.
+
+### Single Linked List in C
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -86,48 +151,23 @@ La RAM diventa:
     0x4000      |  30                   |  NULL (fine lista)
       ...       |  [Altri dati non correlati]  ← La memoria è frammentata!
 
-Esempio: Python list vs. Linked List
-1. Using Python list (Slow for Head Operations)
+### Linked List e Frammentazione
+Problema delle Linked List
 
-```python
-my_list = [2, 3, 4]
+    Le linked list non richiedono memoria contigua: ogni nodo vive in un punto qualsiasi della RAM.
 
-# Insert at head (all elements shift right → O(n))
-my_list.insert(0, 1)  # [1, 2, 3, 4]
+    Non causano frammentazione della memoria fisica, perché il sistema operativo può allocare i nodi dove c’è spazio libero.
 
-# Delete at head (all elements shift left → O(n))
-my_list.pop(0)  # [2, 3, 4]
+    Ma hanno un altro tipo di frammentazione:
 
-```
-    Problem: If you do this thousands of times, it becomes inefficient.
-2. Using a Linked List (Fast for Head Operations)
+        Overhead dei puntatori: Ogni nodo spreca memoria per next/prev.
 
-```python
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+        Cache misses: I nodi sparsi in RAM rallentano l’accesso (nessuna località di riferimento).
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-
-    def insert_at_head(self, data):  # O(1)
-        new_node = Node(data)
-        new_node.next = self.head
-        self.head = new_node
-
-    def delete_at_head(self):  # O(1)
-        if self.head:
-            self.head = self.head.next
-
-# Usage
-ll = LinkedList()
-ll.insert_at_head(2)  # 2 → None
-ll.insert_at_head(1)  # 1 → 2 → None
-ll.delete_at_head()   # 2 → None
-```
-    Advantage: No shifting! Just pointer updates → Much faster if done repeatedly.
+## Perché Python Non Usa Linked List per Tutto?
+- Accesso casuale: Le linked list sono lente per operazioni come lista[1000] (O(n)).
+- Cache locality: Gli array sono più veloci perché i dati sono vicini in memoria (le linked list no).
+- Python usa deque: Una via di mezzo (lista doppiamente linkata con ottimizzazioni).
 
 ## Python
 While Python’s built-in list covers most needs, singly linked lists are useful when:
@@ -315,42 +355,3 @@ class MRUCache:
 
     Python asyncio.Queue usa concetti simili.
 
-### Array e Frammentazione
-Problema degli Array/Liste Contigue
-
-    Gli array (e le liste contigue come Python list) richiedono blocchi di memoria contigua.
-
-    Se hai un array grande e lo elimini/ridimensioni spesso, lasci "buchi" nella memoria:
-    python
-
-    # Esempio: un array di 1 MB viene liberato, ma la RAM ora ha un "buco" da 1 MB
-    arr = [0] * 10**6  # Alloca 1 MB contiguo
-    del arr             # Libera 1 MB, ma può non essere riutilizzabile per allocazioni più piccole
-
-    Risultato: La memoria si frammenta, e anche se c’è spazio libero totale, non puoi allocare un nuovo array grande perché non c’è un blocco contiguo sufficiente.
-
-Perché è un Problema?
-
-    Se il sistema operativo non riesce a trovare un blocco contiguo per un nuovo array, devi:
-
-        Spostare dati in memoria (costoso).
-
-        Fallire l’allocazione (out-of-memory, anche se teoricamente c’è spazio).
-
-### Linked List e Frammentazione
-Problema delle Linked List
-
-    Le linked list non richiedono memoria contigua: ogni nodo vive in un punto qualsiasi della RAM.
-
-    Non causano frammentazione della memoria fisica, perché il sistema operativo può allocare i nodi dove c’è spazio libero.
-
-    Ma hanno un altro tipo di frammentazione:
-
-        Overhead dei puntatori: Ogni nodo spreca memoria per next/prev.
-
-        Cache misses: I nodi sparsi in RAM rallentano l’accesso (nessuna località di riferimento).
-
-## Perché Python Non Usa Linked List per Tutto?
-- Accesso casuale: Le linked list sono lente per operazioni come lista[1000] (O(n)).
-- Cache locality: Gli array sono più veloci perché i dati sono vicini in memoria (le linked list no).
-- Python usa deque: Una via di mezzo (lista doppiamente linkata con ottimizzazioni).
