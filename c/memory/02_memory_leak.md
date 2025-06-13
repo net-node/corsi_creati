@@ -98,11 +98,11 @@ int main() {
 
 ### Casi Particolari
 Se perdi il puntatore prima di free()
-
+```c
 int *ptr = malloc(100);
-ptr = NULL;  // Sovrascrivi ptr senza free() → memory leak!
-
-    Ora non puoi più chiamare free(ptr) perché ptr non punta più alla memoria allocata.
+ptr = NULL; // Sovrascrivi ptr senza free() → memory leak!
+// Ora non puoi più chiamare free(ptr) perché ptr non punta più alla memoria allocata.
+```
 
 Regola d'oro
 
