@@ -2,7 +2,6 @@
 
 Esempio con Memory Leak
 ```c
-
 #include <stdlib.h>
 
 void funzione_pericolosa() {
@@ -19,7 +18,6 @@ Cosa succede in memoria:
 
 Se Chiami funzione_pericolosa() più volte:
 ```c
-
 for (int i = 0; i < 1000; i++) {
     funzione_pericolosa();  // Perde 400 byte a ogni chiamata!
 }
@@ -43,7 +41,6 @@ Nei programmi lunghi/demonio:
 3. Come Evitare Memory Leak?
 A. Sempre usare free()
 ```c
-
 void funzione_sicura() {
     int *ptr = malloc(100 * sizeof(int));
     // ... usa ptr ...
@@ -52,23 +49,20 @@ void funzione_sicura() {
 ```
 B. Usare strumenti di debug
 
-    Valgrind (Linux/macOS):
-    bash
-
+Valgrind (Linux/macOS):
+```bash
 valgrind --leak-check=full ./tu_programma
-
+```
 Ti mostra esattamente dove hai dimenticato free().
 
 AddressSanitizer (gcc/clang):
-bash
-
-    gcc -fsanitize=address -g tuo_file.c
-    ./a.out
-
+```bash
+gcc -fsanitize=address -g tuo_file.c
+./a.out
+```
 4. Esempio Reale
 Con Memory Leak ❌
 ```c
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -87,7 +81,6 @@ LEAK SUMMARY:
 
 Senza Memory Leak ✅
 ```c
-
 #include <stdio.h>
 #include <stdlib.h>
 
