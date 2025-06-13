@@ -1,4 +1,4 @@
-## Memory Leak
+## Memory Leak (Perdita di Memoria)
 
 Esempio con Memory Leak
 ```c
@@ -26,7 +26,7 @@ Dopo 1000 chiamate, 400 KB di memoria sono persi!
 
 Il programma diventa sempre più lento e potrebbe crashare per esaurimento memoria.
 
-2. Conseguenze di un Memory Leak
+### Conseguenze di un Memory Leak
 
 Nei programmi brevi: Non è un grosso problema (la memoria viene liberata quando il programma termina).
 
@@ -38,7 +38,7 @@ Nei programmi lunghi/demonio:
 
     Nei dispositivi embedded (es. schede elettroniche), può causare crash irreversibili.
 
-3. Come Evitare Memory Leak?
+### Come Evitare Memory Leak?
 A. Sempre usare free()
 ```c
 void funzione_sicura() {
@@ -60,7 +60,7 @@ AddressSanitizer (gcc/clang):
 gcc -fsanitize=address -g tuo_file.c
 ./a.out
 ```
-4. Esempio Reale
+### Esempio Reale
 Con Memory Leak ❌
 ```c
 #include <stdio.h>
@@ -96,7 +96,7 @@ int main() {
     
     All heap blocks were freed -- no leaks are possible
 
-5. Casi Particolari
+### Casi Particolari
 Se perdi il puntatore prima di free()
 
 int *ptr = malloc(100);
@@ -108,7 +108,7 @@ Regola d'oro
 
     Ogni malloc() deve avere un free() corrispondente.
 
-Riassunto
+### Riassunto
 
     free() dimenticato → Memory leak → memoria persa finché il programma non termina.
     Strumenti come Valgrind aiutano a trovare leak.
