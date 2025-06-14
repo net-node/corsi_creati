@@ -2,5 +2,5 @@
 
 int main() {
     int arr[3] = {10, 20, 30};
-    printf("%d\n", arr[i]);
+    printf("%d\n", arr[0]);
 }
