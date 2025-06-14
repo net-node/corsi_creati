@@ -1,7 +1,7 @@
 #include <stdio.h> // printf, scanf
 #include <stdlib.h> // malloc
 
-void leak_memory() {
+void memory_leak() {
     int n=0;
     printf("Size of array? ");
     scanf("%d", &n);
@@ -11,5 +11,7 @@ void leak_memory() {
 }  // ptr esce dallo scope, ma i (n * 4)byte restano bloccati
 
 int main() {
-    leak_memory();
+    for(int i=0; i<1000; i++) {
+        fix_memory_leak();
+    }
 }
