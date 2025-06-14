@@ -69,7 +69,7 @@
         // Celle per l'heap (10 celle con indirizzi non contigui)
         const heapMemory = document.getElementById('heap-memory');
         const heapAddresses = [0xAA100, 0xAA220, 0xAA180, 0xAA300, 0xAA240, 
-                              0xAA380, 0xAA1C0, 0xAA280, 0xAA340, 0xAA2C0];
+                              0xAA380, 0xAA1C0, 0xAA280, 0xAA340, 0xAA2C0].sort();
         
         for (let i = 0; i < 10; i++) {
             const cell = document.createElement('div');
