@@ -1,4 +1,5 @@
-#include <stdlib.h>
+#include <stdio.h> // printf, scanf
+#include <stdlib.h> // malloc
 
 void leak_memory() {
     int *ptr = malloc(100 * sizeof(int));
