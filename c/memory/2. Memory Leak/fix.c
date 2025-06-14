@@ -2,10 +2,7 @@
 #include <stdlib.h> // malloc
 
 void fix_memory_leak() {
-    int n=0;
-    printf("Size of array? ");
-    scanf("%d", &n);
-    int *ptr = malloc(n * sizeof(int));  // (se int = 4 byte) Alloca (n * 4)byte
+    int *ptr = malloc(2 * sizeof(int));  // (se int = 4 byte) Alloca (n * 4)byte
     // ... usa ptr ...
     free(ptr); // libero la memoria dello heap!
 }
