@@ -1,4 +1,4 @@
-## Memory Leak (Perdita di Memoria)
+## Memory Leak (Perdita nella Memoria)
 
 Esempio con Memory Leak
 ```c
