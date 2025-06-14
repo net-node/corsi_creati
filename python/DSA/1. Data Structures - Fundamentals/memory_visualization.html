@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Memory Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .memory-section {
+            margin-bottom: 30px;
+        }
+        .memory-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .memory-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .memory-cell {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        .memory-cell:hover {
+            background-color: #f0f0f0;
+        }
+        .memory-cell.occupied {
+            background-color: #a0d8ff;
+        }
+        .address-label {
+            font-size: 9px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="memory-section">
+        <div class="memory-title">Stack Memory</div>
+        <div class="memory-grid" id="stack-memory"></div>
+    </div>
+
+    <div class="memory-section">
+        <div class="memory-title">Heap Memory</div>
+        <div class="memory-grid" id="heap-memory"></div>
+    </div>
+
+    <script>
+        // Crea celle per lo stack (10 celle con indirizzi contigui)
+        const stackMemory = document.getElementById('stack-memory');
+        for (let i = 0; i < 10; i++) {
+            const address = 0xFF000 + i * 4;
+            const cell = document.createElement('div');
+            cell.className = 'memory-cell';
+            cell.innerHTML = `<div class="address-label">0x${address.toString(16)}</div>`;
+            cell.addEventListener('click', function() {
+                this.classList.toggle('occupied');
+            });
+            stackMemory.appendChild(cell);
+        }
+
+        // Celle per l'heap (10 celle con indirizzi non contigui)
+        const heapMemory = document.getElementById('heap-memory');
+        const heapAddresses = [0xAA100, 0xAA220, 0xAA180, 0xAA300, 0xAA240, 
+                              0xAA380, 0xAA1C0, 0xAA280, 0xAA340, 0xAA2C0];
+        
+        for (let i = 0; i < 10; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'memory-cell';
+            cell.innerHTML = `<div class="address-label">0x${heapAddresses[i].toString(16)}</div>`;
+            cell.addEventListener('click', function() {
+                this.classList.toggle('occupied');
+            });
+            heapMemory.appendChild(cell);
+        }
+    </script>
+</body>
+</html>
