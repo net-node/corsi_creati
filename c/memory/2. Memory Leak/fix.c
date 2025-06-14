@@ -1,14 +1,16 @@
 #include <stdio.h> // printf, scanf
 #include <stdlib.h> // malloc
 
-void fix_memory_leak() {
-    int *ptr = malloc(2 * sizeof(int));  // (se int = 4 byte) Alloca (n * 4)byte
-    // ... usa ptr ...
-    free(ptr); // libero la memoria dello heap!
-}
-
 int main() {
-    for(int i=0; i<1000; i++) {
-        fix_memory_leak();
-    }
+    int n=0;
+    printf("Size of array? ");
+    scanf("%d", &n);
+
+    int* ptr = malloc(n * sizeof(int));
+    ptr[0] = 101;
+
+    printf("%d\n", ptr[0]);
+    free(ptr); // <-- Libera la memoria!
 }
+// uscita dello scope
+// n, ptr distrutti dallo stack

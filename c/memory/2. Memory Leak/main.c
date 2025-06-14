@@ -2,7 +2,5 @@
 
 int main() {
     int arr[3] = {10, 20, 30};
-    for (int i=0; i<3; i++){
-        printf("%d\n", arr[i]);
-    }
+    printf("%d\n", arr[i]);
 }
