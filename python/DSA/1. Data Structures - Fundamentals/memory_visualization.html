@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 10px;
         }
         .memory-section {
             margin-bottom: 30px;
@@ -21,7 +21,7 @@
         }
         .memory-cell {
             width: 40px;
-            height: 40px;
+            height: 20px;
             border: 1px solid #000;
             cursor: pointer;
             display: flex;
@@ -33,7 +33,7 @@
             background-color: #f0f0f0;
         }
         .memory-cell.occupied {
-            background-color: #a0d8ff;
+            background-color: #46e75e;
         }
         .address-label {
             font-size: 9px;
@@ -41,21 +41,24 @@
         }
     </style>
 </head>
-<body>
-    <div class="memory-section">
-        <div class="memory-title">Stack Memory</div>
-        <div class="memory-grid" id="stack-memory"></div>
-    </div>
-
+<body style="margin: auto; max-width: 200px;">
+    
     <div class="memory-section">
         <div class="memory-title">Heap Memory</div>
         <div class="memory-grid" id="heap-memory"></div>
     </div>
 
+    <div class="memory-section">
+        <div class="memory-title">Stack Memory</div>
+        <div class="memory-grid" id="stack-memory"></div>
+    </div>
+
     <script>
         // Crea celle per lo stack (10 celle con indirizzi contigui)
         const stackMemory = document.getElementById('stack-memory');
-        for (let i = 0; i < 10; i++) {
+        const cells = 16;
+        
+        for (let i = 0; i < cells; i++) {
             const address = 0xFF000 + i * 4;
             const cell = document.createElement('div');
             cell.className = 'memory-cell';
@@ -68,13 +71,14 @@
 
         // Celle per l'heap (10 celle con indirizzi non contigui)
         const heapMemory = document.getElementById('heap-memory');
-        const heapAddresses = [0xAA100, 0xAA220, 0xAA180, 0xAA300, 0xAA240, 
-                              0xAA380, 0xAA1C0, 0xAA280, 0xAA340, 0xAA2C0].sort();
+        const heapAddresses = [0xAA220, 0xAA180, 0xAA300, 0xAA240, 
+                              0xAA1C0, 0xAA280, 0xAA340, 0xAA2C0].sort();
         
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < cells; i++) {
+            const address = 0xAA180 + i * 4;
             const cell = document.createElement('div');
             cell.className = 'memory-cell';
-            cell.innerHTML = `<div class="address-label">0x${heapAddresses[i].toString(16)}</div>`;
+            cell.innerHTML = `<div class="address-label">0x${address.toString(16)}</div>`;
             cell.addEventListener('click', function() {
                 this.classList.toggle('occupied');
             });
